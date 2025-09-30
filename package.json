@@ -1,0 +1,24 @@
+{
+  "name": "tainan-golf-club-site",
+  "version": "1.0.0",
+  "description": "台南高爾夫球俱樂部官方網站",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Build complete - static files ready in public folder'"
+  },
+  "keywords": [
+    "golf",
+    "tainan",
+    "website"
+  ],
+  "author": "TNGC",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}

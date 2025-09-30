@@ -1,0 +1,165 @@
+TNGC - 形象官網全新改版重點說明
+
+資料整理︰Johnson @ 2025/9/15
+
+/*=================================================/
+
+《客戶現有網站》 https://www.tainangolf.com.tw/index.html
+→ 以下套表完成之後請協助佈署至客戶指定之主機，舊網站另行封存，謝謝。
+
+
+★★★ 官網 URL 預設顯示「繁中版」著陸頁 index.html 並於首次載入提示「是否選擇切換語言」之 sweetalert2 對話框 ★★★
+
+
+<!-- Language 語言版本 -->
+
+一、繁體中文 Taiwan -- lang="zh-Hant-TW"【提供最新消息公告、預約表單︱PHP套表︱*.html】
+二、English UK/GB -- lang="en-us"【不提供最新消息公告/僅提供預約表單︱PHP套表︱jp-*.html】
+三、日本語 Japan -- lang="jp"【不提供最新消息公告/僅提供預約表單︱PHP套表︱en-*.html】
+
+
+
+※ 以下請以 config 檔或 table 儲存以利頁面渲染生成時進行引用，並方便未來內容之異動編修。
+
+
+<!-- 網頁 head 宣告參數 -->
+
+$page-head-title = ""
+$page-meta-description = ""
+$page-meta-keywords = ""
+$page-meta-author = ""
+
+● meta property="og:title" content="" → 與 $page-head-title 相同！ 
+● meta property="og:description" content="" → 與 $page-meta-description 相同！
+● meta property="og:image" content="" → 必須提供實際網站的絕對路徑，預覽顯示圖片為 og-image-1024x600.jpg(位於根目錄) 
+
+
+<!-- 頁首 header 區段組成 -->
+
+1. /.site-branding - 球場logo圖片並提供 home.html 首頁連結*
+2. /.header-menu - 網站主功能表，目前所在網頁請將階層項目之式樣設為 /.active
+3. /.header-search - 提供三個重要快捷功能按鈕，若為手機版則隱藏並改為 /.header-menu 項目顯示！
+
+
+<!-- 頁首 header > 重要快捷功能按鈕 -->
+
+1. 選擇語言版本︰點擊開啟 #Language-Chooser-Modal → { 繁體中文︱English︱日本語 }
+2. 球場即時現況︰點擊開啟 #LIVE-CAM-Modal → 尚未完成 OBS 直播連線之前，暫時顯示「目前施工維護中」圖文。 
+3. 線上預約擊球︰新視窗開啟 → Online Booking... 尚未完成 ERP 串接之前，請先導向LINE@主畫面。 
+
+
+
+<!-- 頁尾 -->
+
+● 標準模式︰完整顯示 [section /.main-get-started] + [footer /.site-footer] + [div /.footer-last]
+● 精簡模式︰僅顯示 [div /.footer-last]
+ 
+→【註】頁尾 [section /.main-get-started] 普通會員招募提供「入會辦法」連結顯示外部網頁(來源︰LINE@CRM)
+
+
+********************************/
+
+
+
+★★★ ../sitepages 繁中版網頁清單 (16+1) ★★★
+
+home.html【含動態內容】
+
+[ 關於球場 ]
+about.html 俱樂部簡介
+pricing.html 收費標準【含內容設定】
+organize.html 組織架構
+privacy.html 隱私權保護政策【含內容設定】
+
+[ 服務項目 > 球場環境 Course ]
+facilities.html 會館設施
+course-fairways.html 全區球道圖
+course-hole-guide.html 球洞資訊
+
+
+[ 服務項目 > 餐飲服務 Catering ]
+catering-restaurant.html 餐廳實景
+catering-dishes.html 精選菜色
+catering-wedding.html 喜宴實況
+catering-menus.html 桌席預定菜單
+
+
+[ 最新消息 ]
+events.html 活動花絮【動態內容】
+news.html 活動訊息【動態內容】
+news-yyyymmdd.html 活動訊息 > 詳細內容【動態內容】
+
+contact.html 與我們連絡【含動態表單】
+
+
+
+
+★★★ 後台管理功能 (來源依據為︰Tim 報價單分項) ★★★
+
+■ 管理者登入 -- 頁尾 /.footer-last 版權宣告的 dumb-link 可作為網站後台管理介面登入之用！
+■ 最新消息管理 -- 新增、修改、刪除、分頁列表(含基本排序與資料筆數設定功能)、預覽檢視*
+■ 預約表單管理 -- 最新預約表單通知訊息(初期以email為主)、分頁列表(含基本排序與資料筆數設定功能)、刪除、預覽檢視*
+■ 收費標準內容管理 -- 僅針對 pricing.html 畫面中「果嶺費定價」內容文字/數值進行編修*
+■ 隱私權政策內容管理 -- 僅針對 privacy.html 畫面中「現有 1~7 條款」內容文字進行編修*
+■ 與我們聯絡內容設定 -- 請詳見下方 Footer 參數，建議以合併於 config 檔或 table 儲存！
+
+→【註1】客戶對於 admin UI 沒有特別指定要求，建議使用 PHP Laravel 原生框架即可。
+→【註2】頁尾 /.footer-last 版權宣告的 dumb-link 可作為後台管理登入連結點。
+
+
+********************************/
+
+
+
+
+$content-text-about-title = "俱樂部簡介"
+$content-text-about-slogan = "精準擊球與策略運用，征服球道自我挑戰"
+
+$content-text-about-P1 = "1976年建成的台南高爾夫俱樂部 Tainan Golf Club 是台南地區第一座高爾夫球場，距離市區僅10餘公里交通相當便利，因為地點位於「新化區」也常被稱為新化球場。擁有台灣老球場滿布茂密樹林的特色，經過一番重新整理後，融入了更多鮮豔花草點綴，球道水準也日益提升，讓球友感受到球場的用心，同時也是首家啟用<b>YAMAHA電磁誘導式球車</b>的南部球場。"
+$content-text-about-P2 = "雖然台南高爾夫球場總長度不長約6,038碼，且球道設計較窄、曲折性多有相當的難度；加上不少球洞中樹林座落位置的干擾，因而使得開球後的下一桿不容易處理。身處台南球場中擊球沿途不僅可欣賞個洞美景，如第14洞旁有著早期觀光景點「虎頭埤」也有極具古典風味的賣店及涼亭，還可於觀景餐廳享用精緻美食、咖啡聚餐等活動，為球友打球增添更多樂趣。"
+
+
+
+
+<!-- Footer 參數 -->
+
+$content-text-about-club-p1 = "1976年建成的台南高爾夫俱樂部是<b>台南地區第一座高爾夫球場</b>，距離市區僅10餘公里，交通相當便利，因為地點位於「新化區」也常被稱為新化球場。"
+$content-text-about-club-p2 = "擁有台灣老球場滿布茂密樹林的特色，經過一番重新整理之後，融入更多鮮豔花草點綴，球道水準日益提升，讓球友感受到球場的用心，同時也是首家啟用<b>YAMAHA電磁誘導式球車</b>的南部球場..."
+
+$content-text-address = "712台南市新化區礁坑里100號"
+$content-text-address-en = "No.100, Jiaokengzi, Xinhua Dist., Tainan City 712, Taiwan (R.O.C.)"
+$content-text-address-jp = "台湾台南市新化区交坑里100号712"
+
+$content-text-tel = "電話/TEL：+886 6 590 1666~8"
+$content-text-fax = "傳真/FAX：+886 6 590 0240"
+
+$content-text-email-1 = "tngc100@gmail.com"
+$content-text-email-2 = "tngc.81@gmail.com", { 預約擊球, href="mailto:tngc.81@gmail.com" title="Email of Reservation" }
+
+$content-social-1-icon = "fa fa-facebook"
+$content-social-1-link = { target="_blank" href="https://www.facebook.com/tainangolf.club" title="Follow on Facebook" }
+
+$content-social-2-icon = "fa fa-youtube-play"
+$content-social-2-link = { target="_blank" href="https://www.youtube.com/@tainangolfclub" title="Follow on YouTube" }
+
+$content-social-3-icon = "fa fa-map-marker"
+$content-social-3-link = { target="_blank" href="https://maps.app.goo.gl/eHfuRFxCnWTwbH8M7" title="Google Maps" }
+
+$content-LINE-OA-text = "LINE官方帳號"
+$content-LINE-OA-id = "@skc6564t"
+$content-LINE-OA-link = { target="_blank" href="https://page.line.me/skc6564t" title="LINE@ ID" }
+
+
+
+<!-- Get Started CTA 參數設定 -->
+
+$member-recruit-title = "普通會員 熱情招募中！"
+$member-recruit-title = "好消息︰本俱樂部招募普通會員尚有數十名額，敬請把握良機 It's now or never."
+$member-recruit-CTA-btn = { 請詳閱入會規章 or 填具入會申請書 }
+$member-recruit-CTA-link = { target="_blank" href="https://tainangolf.golflink.tw/lcrm/page/index/1dt5wo14" title="Join Us Now" }
+→【註】尚未提供線上填表，暫時先導向 LINE@CRM「★普通會員★ 招募公告」之微網頁！
+
+
+以上
+
+<!-- end of this document -->
